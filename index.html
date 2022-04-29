@@ -22,6 +22,7 @@
         </div>
         </div>
         <script>
+            // A helper class to easily call the different method
             class AppCallHandler {
                 markReady(inAppWebView) {
                     this.inAppWebView = inAppWebView;
@@ -35,9 +36,12 @@
                 }
             }
 
-
+            // Initialize the class
             var appCallHandler = new AppCallHandler();
-
+            
+            //
+            // VERY IMPORTANT PART
+            //
             window.addEventListener("flutterInAppWebViewPlatformReady", function(event) {
                 appCallHandler.markReady(window.flutter_inappwebview);
             });
@@ -49,9 +53,9 @@
                 appCallHandler.callHandler('flexilivreWebClose');
             }
             function emitPrompt() {
-                appCallHandler.callHandler('flexilivreWebPrompt', 'Un bouton a été cliqué', 'Confirmation', 'Non', 'Oui')
+                appCallHandler.callHandler('flexilivreWebConfirm', 'Un bouton a été cliqué', 'Confirmation', 'Non', 'Oui')
                 .then(function(result) {
-                    console.log('flexilivreWebPrompt result');
+                    console.log('flexilivreWebConfirm result');
                     console.log(result);
                     if (result) {
 
@@ -59,9 +63,9 @@
                 });
             }
             function emitPictureSelect() {
-                appCallHandler.callHandler('flexilivreWebPictureSelect', 'device')
+                window.flutter_inappwebview.callHandler('flexilivreWebPictureImport', 'device')
                 .then(function(result) {
-                    console.log('flexilivreWebPictureSelect result');
+                    console.log('flexilivreWebPictureImport result');
                     console.log(JSON.stringify(result));
                     var base64 = result.hasOwnProperty('file_data') ? result['file_data'] : '';
                     document.getElementById('image-test').src = base64;
