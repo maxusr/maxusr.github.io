@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    </head>
+    <body>
+        <h1>JavaScript Handlers</h1>
+        <button onclick="javascricpt:" ></button>
+        <script>
+            class AppCallHandler {
+                markReady(inAppWebView) {
+                    this.inAppWebView = inAppWebView;
+                }
+
+                callHandler(handlerName, ...args) {
+                    if (this.inAppWebView) {
+                        return this.inAppWebView.callHandler(handlerName);
+                    }
+                    return Promise.reject();
+                }
+            }
+            var appCallHandler = AppCallHandler();
+            window.addEventListener("flutterInAppWebViewPlatformReady", function(event) {
+                appCallHandler.markReady(window.flutter_inappwebview);
+                window.flutter_inappwebview.callHandler('handlerFoo')
+                  .then(function(result) {
+                    // print to the console the data coming
+                    // from the Flutter side.
+                    console.log(JSON.stringify(result));
+                    
+                    window.flutter_inappwebview
+                      .callHandler('handlerFooWithArgs', 1, true, ['bar', 5], {foo: 'baz'}, result);
+                });
+            });
+            function emitAlert() {
+                appCallHandler.callHandler('flexilivreWebAlert', 'Un bouton a été cliqué');
+            }
+            function emitPictureSelect() {
+                appCallHandler.callHandler('flexilivreWebPictureSelect', 'device')
+                .then(function(result) {
+                    console.log('flexilivreWebPictureSelect result');
+                    console.log(result);
+                });
+            }
+        </script>
+    </body>
+</html>
