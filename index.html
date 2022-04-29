@@ -23,7 +23,7 @@
 
                 callHandler(handlerName, ...args) {
                     if (this.inAppWebView) {
-                        return this.inAppWebView.callHandler(handlerName);
+                        return this.inAppWebView.callHandler(handlerName, ...args);
                     }
                     return Promise.reject('inAppWebView not defined. Please ensure that you called markReady method');
                 }
