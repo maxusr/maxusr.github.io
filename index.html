@@ -1,27 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     </head>
     <body>
-        <h1>Test Handlers</h1>
-        <img id="image-test" alt="image-test" width="100%" height="300px" src="" />
-        <br/>
-        <br/>
-        <button onclick="javascricpt:emitAlert()" >Click me to alert</button>
-        <br/>
-        <br/>
-        <button onclick="javascricpt:emitPrompt()" >Click me to prompt</button>
-        <br/>
-        <br/>
-        <button onclick="javascricpt:emitClose()" >Click me to close</button>
-        <br/>
-        <br/>
-        <button onclick="javascricpt:emitPictureSelect()" >Click me to select picture</button>
-        <br/>
-        <br/>
-        <button onclick="javascricpt:alert('Un bouton a été cliqué - Alert')" >Click me to JS alert</button>
+        <div class="container" >
+        <br />
+        <h1 class="text-center" >Test Handlers</h1>
+        
+        <div class="d-grid gap-4 col-md-6 mx-auto m-4">
+            <img id="image-test" alt="image-test" class="img-fluid img-thumbnail" src="" />
+        </div>
+        <div class="d-grid gap-2 col-8 col-md-6 mx-auto">
+            <button class="btn btn-info" onclick="javascricpt:emitAlert()" >Click me to alert</button>
+            <button class="btn btn-info" onclick="javascricpt:emitPrompt()" >Click me to prompt</button>
+            <button class="btn btn-info" onclick="javascricpt:emitClose()" >Click me to close</button>
+            <button class="btn btn-info" onclick="javascricpt:emitPictureSelect()" >Click me to select picture</button>
+            <button class="btn btn-info" onclick="javascricpt:alert('Un bouton a été cliqué - Alert')" >Click me to JS alert</button>
+        </div>
+        </div>
         <script>
             class AppCallHandler {
                 markReady(inAppWebView) {
@@ -42,7 +41,7 @@
             window.addEventListener("flutterInAppWebViewPlatformReady", function(event) {
                 appCallHandler.markReady(window.flutter_inappwebview);
             });
-            
+
             function emitAlert() {
                 appCallHandler.callHandler('flexilivreWebAlert', 'Un bouton a été cliqué');
             }
