@@ -28,7 +28,10 @@
                     return Promise.reject();
                 }
             }
-            var appCallHandler = AppCallHandler();
+
+
+            var appCallHandler = new AppCallHandler();
+            
             window.addEventListener("flutterInAppWebViewPlatformReady", function(event) {
                 appCallHandler.markReady(window.flutter_inappwebview);
                 window.flutter_inappwebview.callHandler('handlerFoo')
